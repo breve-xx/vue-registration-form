@@ -22,14 +22,14 @@
                             <input type="text" :id="'name_attendee_' + i" v-model="attenders[(i - 1)]" />
                         </div>
                     </template>
-                    <div id="step1_result">
-                        <span v-if="steps['step-1'].valid()">OK</span>
+                    <div id="step1_result" v-if="steps['step-1'].valid()">
+                        <StepComplete />
                     </div>
                 </div>
             </fieldset>
             
-            <fieldset id="step_2" :disabled="!steps['step-1'].valid()">
-                <legend>Step 2</legend>
+            <fieldset id="step_2" :disabled="!steps['step-1'].valid()" :class="{'step-disabled': !steps['step-1'].valid()}">
+                <legend :class="{'step-disabled': !steps['step-1'].valid()}">Step 2</legend>
                 <p>
                     Would you like your company name on your badges?
                 </p>
@@ -60,13 +60,13 @@
                     </label>
                     <textarea rows="10" cols="10" id="special_accomodations_text" v-model="accomodation"></textarea>
                 </div>
-                <div id="step2_result">
-                    <span v-if="steps['step-2'].valid()">OK</span>
+                <div id="step2_result" v-if="steps['step-2'].valid()">
+                    <StepComplete />
                 </div>
             </fieldset>
 
-            <fieldset id="step_3" :disabled="!steps['step-2'].valid()">
-                <legend>Step 3</legend>
+            <fieldset id="step_3" :disabled="!steps['step-2'].valid()" :class="{'step-disabled': !steps['step-2'].valid()}">
+                <legend :class="{'step-disabled': !steps['step-2'].valid()}">Step 3</legend>
                 <label for="rock">
                     Are you ready to rock?
                 </label>
@@ -80,7 +80,6 @@
 <style>
 #page-wrap {
     width: 100%;
-    margin: auto;
 }
 
 #page-wrap > h1 > span {
@@ -91,7 +90,18 @@ fieldset {
     float: left;
     color: black;
     border: 0px;
+}
+
+@media only screen and (min-width: 991px) {
+  fieldset {
     width: 30%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  fieldset:not(:first-child) {
+    margin-top: 1%;
+  }
 }
 
 fieldset p,
@@ -105,6 +115,8 @@ legend {
     border-radius: 10px;
     background-color: white;
     font-weight: bold;
+    white-space: nowrap;
+    min-width: 60px;
 }
 
 #step_1 {
@@ -118,11 +130,30 @@ legend {
 #step_3 {
     background-color: lightcoral;
 }
+
+#step1_result,
+#step2_result {
+    text-align: center;
+}
+
+#step1_result img,
+#step2_result img {
+    margin-top: 1%;
+}
+
+.step-disabled {
+    box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, .6);
+}
 </style>
 
 <script>
+import StepComplete from './StepComplete.vue'
+
 export default {
     name: "Registration",
+    components: {
+        StepComplete
+    },
     data() {
         const _vue = this
 
