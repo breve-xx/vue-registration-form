@@ -78,6 +78,11 @@
 </template>
 
 <style>
+#page-wrap {
+    width: 100%;
+    margin: auto;
+}
+
 #page-wrap > h1 > span {
     color: cadetblue;
 }
@@ -86,6 +91,7 @@ fieldset {
     float: left;
     color: black;
     border: 0px;
+    width: 30%;
 }
 
 fieldset p,
