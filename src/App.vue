@@ -14,3 +14,12 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+  background-color: #222;
+  color: white;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+</style>
