@@ -12,16 +12,18 @@
                     <option v-for="i in maxAttenders" :key=i  :id="'opt_' + i" :value=i>{{ i }}</option>
                 </select>
                 <br>
-                <div id="attendee_container" v-show="numAttenders > 0">
-                    <template v-for="i in numAttenders">
-                        <div v-bind:key="i" :id="'attendee_' + i + '_wrap'">
-                            <h3 v-if="i == 1">Please provide full names:</h3>
-                            <label :for="'name_attendee_' + i">
-                                Attendee {{ i }} Name:
-                            </label>
-                            <input type="text" :id="'name_attendee_' + i" v-model="attenders[(i - 1)]" />
-                        </div>
-                    </template>
+                <div id="attendee_container" v-show-slide="numAttenders > 0">
+                    <h3>Please provide full names:</h3>
+                    <transition-group name="fade">
+                        <template v-for="i in numAttenders">
+                            <div v-bind:key="i" :id="'attendee_' + i + '_wrap'">
+                                <label :for="'name_attendee_' + i">
+                                    Attendee {{ i }} Name:
+                                </label>
+                                <input type="text" :id="'name_attendee_' + i" v-model="attenders[(i - 1)]" />
+                            </div>
+                        </template>
+                    </transition-group>
                     <div id="step1_result" v-show="steps['step-1'].valid()">
                         <SlideComplete :pose="steps['step-1'].valid() ? 'visible' : 'hidden'">
                             <img alt="Step complete" src="../assets/logo.png">
@@ -40,13 +42,11 @@
                 &emsp;
                 <input type="radio" id="company_name_toggle_off" name="company_name_toggle_group" value="no" v-model="companyRadio">
                 <label for="company_name_toggle_off">No</label>
-                <div id="company_name_wrap" v-show="companyYes">
-                    <SlideInput :pose="companyYes ? 'visible' : 'hidden'">
-                        <label for="company_name">
-                            Company Name:
-                        </label>
-                        <input type="text" id="company_name" v-model="company" />
-                    </SlideInput>
+                <div id="company_name_wrap" v-show-slide="companyYes">
+                    <label for="company_name">
+                        Company Name:
+                    </label>
+                    <input type="text" id="company_name" v-model="company" />
                 </div>
                 <div>			
                     <p>
@@ -58,15 +58,13 @@
                     <input type="radio" id="special_accommodations_toggle_off" name="special_accommodations_toggle" value="no" v-model="accomodationRadio">
                     <label for="special_accommodations_toggle_off">No</label>
                 </div>
-                <div id="special_accommodations_wrap" v-show="accomodationYes">
-                    <SlideInput :pose="accomodationYes ? 'visible' : 'hidden'">
-                        <label for="special_accomodations_text">
-                            Please explain below:
-                        </label>
-                        <div>
-                            <textarea rows="10" id="special_accomodations_text" v-model="accomodation"></textarea>
-                        </div>
-                    </SlideInput>
+                <div id="special_accommodations_wrap" v-show-slide="accomodationYes">
+                    <label for="special_accomodations_text">
+                        Please explain below:
+                    </label>
+                    <div>
+                        <textarea rows="10" id="special_accomodations_text" v-model="accomodation"></textarea>
+                    </div>
                 </div>
                 <div id="step2_result" v-show="steps['step-2'].valid()">
                     <SlideComplete :pose="steps['step-2'].valid() ? 'visible' : 'hidden'">
@@ -158,6 +156,13 @@ legend {
 #special_accomodations_text {
     width: 100%;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .75s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
 
 <script>
@@ -166,17 +171,9 @@ import posed from 'vue-pose';
 export default {
     name: "Registration",
     components: {
-        FadeList: posed.div({
-            visible: {opacity: 1},
-            hidden: {opacity: 0}
-        }),
         SlideComplete: posed.div({
             visible: {y: 0},
             hidden: {y: -100}
-        }),
-        SlideInput: posed.div({
-            visible: {opacity: 1, y: 0},
-            hidden: {opacity: 0, y: -20}
         })
     },
     data() {
