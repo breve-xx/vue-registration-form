@@ -1,29 +1,19 @@
 # vue-registration-form
+This is simple Vue.js application that simulates an event registration form step-by-step.
 
-## Project setup
+The application uses `yarn` as deplendency manager.
+### Application setup
+Once the repository is cloned move to the main folder an run
 ```
 yarn install
 ```
-
-### Compiles and hot-reloads for development
+to install all the needed dependecies.
+### Application functional test
+To *try* the application for testing purposes it can be served on `localhost` with
 ```
-yarn run serve
+yarn serve
 ```
-
-### Compiles and minifies for production
+it will run by default on port `8080`; if you need to serve it on another port, you can do it with
 ```
-yarn run build
+yarn serve --port <port>
 ```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
