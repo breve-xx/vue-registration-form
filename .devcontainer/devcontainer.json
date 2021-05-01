@@ -1,0 +1,18 @@
+{
+	"name": "Vue registration form!",
+	"build": {
+		"dockerfile": "Dockerfile",
+	},
+
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/zsh"
+	},
+
+	"extensions": [],
+
+	"mounts": ["source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"],
+
+	"forwardPorts": [8080],
+
+	"postCreateCommand": "yarn install"
+}
