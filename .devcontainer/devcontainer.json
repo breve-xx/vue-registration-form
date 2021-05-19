@@ -5,10 +5,18 @@
 	},
 
 	"settings": { 
-		"terminal.integrated.shell.linux": "/bin/zsh"
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"path": "zsh"
+			}
+		},
+		"terminal.integrated.defaultProfile.linux": "zsh"
 	},
 
-	"extensions": [],
+	"extensions": [
+		"eamodio.gitlens",
+		"mohsen1.prettify-json"
+	],
 
 	"mounts": ["source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"],
 
