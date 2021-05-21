@@ -1,4 +1,4 @@
-FROM kolaente/yarn
+FROM node:16-alpine
 
 RUN yarn global add @vue/cli
 
